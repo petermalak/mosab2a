@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+// In-memory storage for Vercel compatibility
+let quizData = [];
 
-const DATA_FILE = path.join(process.cwd(), 'quiz-answers.json');
 const QUESTIONS = [
   { q: 'ما هي عاصمة مصر؟', choices: ['الإسكندرية', 'القاهرة', 'أسوان', 'الأقصر'], correct: 1 },
   { q: 'كم يساوي ٢ + ٢؟', choices: ['٣', '٤', '٥', '٦'], correct: 1 },
@@ -20,19 +19,8 @@ export default function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   
-  if (!fs.existsSync(DATA_FILE)) {
-    return res.status(200).json({ winners: [], firstWinner: null });
-  }
-  
-  let data = [];
-  try {
-    data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-  } catch (e) {
-    return res.status(500).json({ error: 'Failed to read data' });
-  }
-  
   // Find all entries with correct answers
-  const winners = data.filter(entry =>
+  const winners = quizData.filter(entry =>
     Array.isArray(entry.answers) &&
     entry.answers.length === QUESTIONS.length &&
     entry.answers.every((ans, i) => String(ans) === String(QUESTIONS[i].correct))

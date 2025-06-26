@@ -1,7 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
-const DATA_FILE = path.join(process.cwd(), 'quiz-answers.json');
+// In-memory storage for Vercel compatibility
+let quizData = [];
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
@@ -9,11 +7,9 @@ export default function handler(req, res) {
   }
   
   try {
-    if (fs.existsSync(DATA_FILE)) {
-      fs.unlinkSync(DATA_FILE);
-    }
+    quizData = [];
     return res.status(200).json({ success: true, message: 'تم حذف جميع الإجابات بنجاح' });
   } catch (error) {
-    return res.status(500).json({ error: 'فشل في حذف الملف' });
+    return res.status(500).json({ error: 'فشل في حذف البيانات' });
   }
 } 
