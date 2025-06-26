@@ -7,7 +7,7 @@ export default function Document() {
         <link rel="icon" href="/icon/icon.png" />
         <link rel="apple-touch-icon" href="/icon/icon.png" />
         <meta name="theme-color" content="#f9d950" />
-        <meta name="description" content="Thanwy Scoring System" />
+        <meta name="description" content="Thanwy" />
       </Head>
       <body>
         <Main />
