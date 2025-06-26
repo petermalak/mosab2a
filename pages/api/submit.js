@@ -201,11 +201,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid Egyptian phone number' });
   }
   
-  // Prevent duplicate submissions from the same phone
-  if (quizData.some(entry => entry.phone === phone)) {
-    return res.status(409).json({ error: 'This phone number has already submitted answers.' });
-  }
-  
   const timestamp = Date.now();
   const entry = { phone, answers, timestamp };
   quizData.push(entry);

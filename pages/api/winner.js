@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
 // In-memory storage for Vercel compatibility
 let quizData = [];
 
